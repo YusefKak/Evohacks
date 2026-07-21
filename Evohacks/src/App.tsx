@@ -5,7 +5,11 @@ const REGISTRATION_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLScUbbMYEwPvom53GUXhHfZ9HG2YvZzGwOeLkhnKHqnKqwq1AQ/viewform?usp=publish-editor";
 
 function openRegistration() {
-  window.open(REGISTRATION_URL, "_blank", "noopener,noreferrer");
+  console.log("Button clicked!");
+  window.open(
+    "https://www.google.com",
+    "_blank"
+  );
 }
 
 type Page =
