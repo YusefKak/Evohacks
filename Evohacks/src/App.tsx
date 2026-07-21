@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import "./App.css";
 
+const REGISTRATION_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLScUbbMYEwPvom53GUXhHfZ9HG2YvZzGwOeLkhnKHqnKqwq1AQ/viewform?usp=publish-editor";
+
+function openRegistration() {
+  window.open(REGISTRATION_URL, "_blank", "noopener,noreferrer");
+}
+
 type Page =
   | "home"
   | "about"
@@ -189,7 +196,7 @@ function Navbar({
           </button>
         ))}
 
-        <Button onClick={() => alert("Registration will open soon.")}>
+        <Button onClick={() => alert(openRegistration)}>
           Register
         </Button>
       </nav>
@@ -256,7 +263,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
           </p>
 
           <div className="button-row">
-            <Button onClick={() => alert("Registration will open soon.")}>
+            <Button onClick={() => alert(openRegistration)}>
               Register Now
             </Button>
 
@@ -360,7 +367,9 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
           </div>
 
           <div className="button-row">
-            <Button>Register</Button>
+            <Button onClick={openRegistration}>
+              Register
+            </Button>
 
             <Button secondary onClick={() => changePage("hackathons")}>
               View details
@@ -403,7 +412,9 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
           </p>
 
           <div className="button-row centered">
-            <Button>Register</Button>
+            <Button onClick={openRegistration}>
+              Register
+            </Button>
 
             <Button secondary onClick={() => changePage("contact")}>
               Reach Out
@@ -524,7 +535,9 @@ function HackathonsPage() {
           </p>
 
           <div className="button-row">
-            <Button>Register</Button>
+            <Button onClick={openRegistration}>
+              Register
+            </Button>
             <Button secondary>View details</Button>
           </div>
         </Card>
