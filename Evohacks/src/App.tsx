@@ -805,7 +805,7 @@ function Footer({ changePage }: { changePage: (page: Page) => void }) {
 
         <div>
           <h3>Info</h3>
-          <p>team@evohacks.xyz</p>
+          <p>evohacks2026@gmail.com</p>
           <button>Code of Conduct</button>
           <button>Privacy Policy</button>
         </div>
