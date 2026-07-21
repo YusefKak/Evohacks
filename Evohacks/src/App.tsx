@@ -196,7 +196,7 @@ function Navbar({
           </button>
         ))}
 
-        <Button onClick={() => alert(openRegistration)}>
+        <Button onClick={openRegistration}>
           Register
         </Button>
       </nav>
@@ -263,7 +263,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
           </p>
 
           <div className="button-row">
-            <Button onClick={() => alert(openRegistration)}>
+            <Button onClick={openRegistration}>
               Register Now
             </Button>
 
@@ -368,7 +368,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
 
           <div className="button-row">
             <Button onClick={openRegistration}>
-              Register
+              Register Now
             </Button>
 
             <Button secondary onClick={() => changePage("hackathons")}>
@@ -413,7 +413,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
 
           <div className="button-row centered">
             <Button onClick={openRegistration}>
-              Register
+              Register Now
             </Button>
 
             <Button secondary onClick={() => changePage("contact")}>
