@@ -748,8 +748,8 @@ function ContactPage() {
           <h2>Other ways to reach us</h2>
 
           <p>✉ evohacks2026@gmail.com</p>
-          <p>◌ Discord:https://discord.gg/A77MhsWBRQ</p>
-          <p>◎ @evohacks</p>
+          <p>◌ https://discord.gg/A77MhsWBRQ</p>
+          <p>◎ https://www.instagram.com/evohacks2026/</p>
           <p>◫ EvoHacks</p>
           <p>⌘ github.com/YusefKak/Evohacks</p>
 
