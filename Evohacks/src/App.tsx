@@ -751,8 +751,8 @@ function ContactPage() {
         <Card className="contact-information">
           <h2>Other ways to reach us</h2>
 
-          <p>✉ team@evohacks.xyz</p>
-          <p>◌ Discord coming soon</p>
+          <p>✉ evohacks2026@gmail.com</p>
+          <p>◌ Discord:https://discord.gg/A77MhsWBRQ</p>
           <p>◎ @evohacks</p>
           <p>◫ EvoHacks</p>
           <p>⌘ github.com/YusefKak/Evohacks</p>
