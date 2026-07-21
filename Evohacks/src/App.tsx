@@ -1190,11 +1190,20 @@ function PrivacyPolicyPage() {
 }
 
 function Footer({ changePage }: { changePage: (page: Page) => void }) {
+  function goToPage(targetPage: Page) {
+    changePage(targetPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
-    <footer>
-      <div className="footer-content"/>
-        <div>
-          <div className="footer-brand">
+    <footer className="site-footer">
+      <div className="footer-content">
+        <div className="footer-about">
+          <button
+            type="button"
+            className="footer-logo"
+            onClick={() => goToPage("home")}
+          >
             <div className="small-logo">
               <span />
               <span />
@@ -1202,60 +1211,75 @@ function Footer({ changePage }: { changePage: (page: Page) => void }) {
             </div>
 
             <strong>EvoHacks</strong>
-          </div>
+          </button>
 
           <p>
             An online hackathon for high school students to build, learn, and
             collaborate on technology projects.
           </p>
 
-          <div className="social-links">✉　⌘　◎　◫</div>
+          <div className="footer-socials">
+            <a href="mailto:team@evohacks.xyz" aria-label="Email EvoHacks">
+              ✉
+            </a>
+
+            <a
+              href="https://github.com/YusefKak/Evohacks"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="EvoHacks GitHub"
+            >
+              ⌘
+            </a>
+
+            <a href="#" aria-label="EvoHacks social media">
+              ◎
+            </a>
+
+            <a href="#" aria-label="EvoHacks community">
+              ◫
+            </a>
+          </div>
         </div>
 
-        <div>
+        <div className="footer-column">
           <h3>Explore</h3>
 
           {navigation.map((item) => (
             <button
+              type="button"
               key={item.page}
-              onClick={() => {
-                changePage(item.page);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => goToPage(item.page)}
             >
               {item.label}
             </button>
           ))}
         </div>
 
-        <div>
-        <h3>Info</h3>
+        <div className="footer-column">
+          <h3>Info</h3>
 
-        <a className="footer-email" href="mailto:team@evohacks.xyz">
-          team@evohacks.xyz
-        </a>
+          <a className="footer-email" href="mailto:team@evohacks.xyz">
+            evohacks2026@gmail.com
+          </a>
 
-        <button
-          onClick={() => {
-            changePage("code-of-conduct");
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-        >
-          Code of Conduct
-        </button>
+          <button
+            type="button"
+            onClick={() => goToPage("code-of-conduct")}
+          >
+            Code of Conduct
+          </button>
 
-        <button
-          onClick={() => {
-            changePage("privacy");
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-        >
-          Privacy Policy
-        </button>
+          <button type="button" onClick={() => goToPage("privacy")}>
+            Privacy Policy
+          </button>
+        </div>
       </div>
 
-      <div className="copyright">
-        © 2027 EvoHacks. Built by students, for students.
+      <div className="footer-bottom">
+        <p>© 2027 EvoHacks. Built by students, for students.</p>
+
+        <p>Online · Free · Open to high school students</p>
       </div>
     </footer>
   );
