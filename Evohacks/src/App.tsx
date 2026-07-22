@@ -243,7 +243,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
   ];
 
   const facts = [
-    ["◫", "Date", "March 14–16, 2027"],
+    ["◫", "Date", "TBD, 2026"],
     ["◎", "Format", "Online event"],
     ["$", "Cost", "Free to join"],
     ["⌂", "Who", "High school students"],
@@ -359,14 +359,14 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
         <Card className="event-card">
           <div>
             <span className="tag">Upcoming</span>
-            <h3>EvoHacks I</h3>
+            <h3>EvoHacks Premiere</h3>
 
             <p>
-              Theme: <strong>Build for Learning</strong> · March 14–16, 2027
+              Theme: <strong>Will be revealed on the day of the event!</strong> · TBD, 2026
             </p>
 
             <p>
-              Build a project that helps students learn something new.
+              Build a project that... (HIDDEN)
             </p>
           </div>
 
@@ -374,6 +374,21 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
             <Button onClick={openRegistration}>
               Register Now
             </Button>
+
+            <div className="hero-buttons">
+            <Button onClick={openRegistration}>
+              Register Now
+            </Button>
+
+            <Button
+              secondary
+              onClick={() =>
+                window.open("https://discord.gg/MVsRk2hyW5", "_blank")
+              }
+            >
+              Join Discord
+            </Button>
+          </div>
 
             <Button secondary onClick={() => changePage("hackathons")}>
               View details
@@ -525,7 +540,7 @@ function HackathonsPage() {
         <Card className="hackathon-card">
           <div className="event-top">
             <span className="tag">Upcoming</span>
-            <span>March 14–16, 2027</span>
+            <span>TBD, 2026</span>
           </div>
 
           <h3>EvoHacks I</h3>
@@ -769,7 +784,7 @@ function ContactPage() {
           <h2>Other ways to reach us</h2>
 
           <p>✉ evohacks2026@gmail.com</p>
-          <p>◌ https://discord.gg/A77MhsWBRQ</p>
+          <p>◌ https://discord.gg/MVsRk2hyW5</p>
           <p>◎ https://www.instagram.com/evohacks2026/</p>
           <p>◫ EvoHacks</p>
           <p>⌘ github.com/YusefKak/Evohacks</p>
