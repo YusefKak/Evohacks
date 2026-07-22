@@ -267,14 +267,30 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
           </p>
 
           <div className="button-row">
-            <Button onClick={openRegistration}>
-              Register Now
-            </Button>
+          <Button onClick={openRegistration}>
+            Register Now
+          </Button>
 
-            <Button secondary onClick={() => changePage("about")}>
-              Learn More
-            </Button>
-          </div>
+          <Button
+            secondary
+            onClick={() =>
+              window.open(
+                "https://discord.gg/MVsRk2hyW5",
+                "_blank",
+                "noopener,noreferrer"
+              )
+            }
+          >
+            Join Discord
+          </Button>
+
+          <Button
+            secondary
+            onClick={() => changePage("about")}
+          >
+            Learn More
+          </Button>
+        </div>
         </div>
 
         <div className="logo-scene">
@@ -375,10 +391,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
               Register Now
             </Button>
 
-            <div className="hero-buttons">
-            <Button onClick={openRegistration}>
-              Register Now
-            </Button>
+            <div>
 
             <Button
               secondary
