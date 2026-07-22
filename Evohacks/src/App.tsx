@@ -897,7 +897,7 @@ function CodeOfConductPage() {
         </p>
 
         <p>
-          <a href="mailto:team@evohacks.xyz">team@evohacks.xyz</a>
+          <a href="mailto:evohacks2026@gmail.com">evohacks2026@gmail.com</a>
         </p>
 
         <p>
@@ -1182,7 +1182,7 @@ function PrivacyPolicyPage() {
         </p>
 
         <p>
-          <a href="mailto:team@evohacks.xyz">team@evohacks.xyz</a>
+          <a href="mailto:evohacks2026@gmail.com">evohacks2026@gmail.com</a>
         </p>
       </Reveal>
     </main>
@@ -1219,7 +1219,7 @@ function Footer({ changePage }: { changePage: (page: Page) => void }) {
           </p>
 
           <div className="footer-socials">
-            <a href="mailto:team@evohacks.xyz" aria-label="Email EvoHacks">
+            <a href="mailto:evohacks2026@gmail.com" aria-label="Email EvoHacks">
               ✉
             </a>
 
@@ -1259,7 +1259,7 @@ function Footer({ changePage }: { changePage: (page: Page) => void }) {
         <div className="footer-column">
           <h3>Info</h3>
 
-          <a className="footer-email" href="mailto:team@evohacks.xyz">
+          <a className="footer-email" href="evohacks2026@gmail.com">
             evohacks2026@gmail.com
           </a>
 
