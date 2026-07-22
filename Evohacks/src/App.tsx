@@ -136,14 +136,16 @@ function Button({
   children,
   secondary = false,
   onClick,
+  type = "button",
 }: {
   children: ReactNode;
   secondary?: boolean;
   onClick?: () => void;
+  type?: "button" | "submit";
 }) {
   return (
     <button
-      type="button"
+      type={type}
       className={`button ${secondary ? "button-secondary" : ""}`}
       onClick={onClick}
     >
@@ -682,10 +684,6 @@ function FAQPage() {
 }
 
 function ContactPage() {
-  function submitForm(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    alert("Your message form is ready to connect to Formspree.");
-  }
 
   return (
     <main className="page">
@@ -698,34 +696,52 @@ function ContactPage() {
       </Reveal>
 
       <Reveal className="contact-layout">
-        <form className="contact-form" onSubmit={submitForm}>
+        <form
+            className="contact-form"
+            action="https://formspree.io/f/xojglbzd"
+            method="POST"
+          >
           <div className="form-row">
             <label>
               First name <span>*</span>
-              <input required />
+              <input 
+              type="text"
+              name="firstName"
+              required />
             </label>
 
             <label>
               Last name <span>*</span>
-              <input required />
+              <input 
+              type="text"
+              name="lastName"
+              required />
             </label>
           </div>
 
           <div className="form-row">
             <label>
               Email <span>*</span>
-              <input type="email" required />
+              <input 
+              type="email" 
+              name="email"
+              required />
             </label>
 
             <label>
               School or organization
-              <input />
+              <input 
+              type="text"
+              name="school"
+              />
             </label>
           </div>
 
           <label>
             Reason for contacting
-            <select defaultValue="">
+            <select 
+            name="reason"
+            defaultValue="">
               <option value="" disabled>
                 Select a reason
               </option>
@@ -740,10 +756,13 @@ function ContactPage() {
 
           <label>
             Message
-            <textarea rows={7} required />
+            <textarea 
+            name="message"
+            rows={7} 
+            required />
           </label>
 
-          <Button>Send message</Button>
+          <Button type="submit">Send message</Button>
         </form>
 
         <Card className="contact-information">
