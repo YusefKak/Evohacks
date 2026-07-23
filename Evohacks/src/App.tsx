@@ -796,7 +796,7 @@ function ContactPage() {
         <Card className="contact-information">
           <h2>Other ways to reach us</h2>
 
-          <p>✉ evohacks2026@gmail.com</p>
+          <p>✉ evohacks@evohacks.xyz</p>
           <p>◌ https://discord.gg/MVsRk2hyW5</p>
           <p>◎ https://www.instagram.com/evohacks2026/</p>
           <p>◫ EvoHacks</p>
@@ -944,7 +944,7 @@ function CodeOfConductPage() {
         </p>
 
         <p>
-          <a href="mailto:evohacks2026@gmail.com">evohacks2026@gmail.com</a>
+          <a href="mailto:evohacks@evohacks.xyz">evohacks@evohacks.xyz</a>
         </p>
 
         <p>
@@ -1229,7 +1229,7 @@ function PrivacyPolicyPage() {
         </p>
 
         <p>
-          <a href="mailto:evohacks2026@gmail.com">evohacks2026@gmail.com</a>
+          <a href="mailto:evohacks@evohacks.xyz">evohacks@evohacks.xyz</a>
         </p>
       </Reveal>
     </main>
@@ -1266,7 +1266,7 @@ function Footer({ changePage }: { changePage: (page: Page) => void }) {
           </p>
 
           <div className="footer-socials">
-            <a href="mailto:evohacks2026@gmail.com" aria-label="Email EvoHacks">
+            <a href="mailto:evohacks@evohacks.xyz" aria-label="Email EvoHacks">
               ✉
             </a>
 
@@ -1306,8 +1306,8 @@ function Footer({ changePage }: { changePage: (page: Page) => void }) {
         <div className="footer-column">
           <h3>Info</h3>
 
-          <a className="footer-email" href="evohacks2026@gmail.com">
-            evohacks2026@gmail.com
+          <a className="footer-email" href="evohacks@evohacks.xyz">
+            evohacks@evohacks.xyz
           </a>
 
           <button
