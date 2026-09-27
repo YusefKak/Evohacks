@@ -553,7 +553,7 @@ function HackathonsPage() {
         <Card className="hackathon-card">
           <div className="event-top">
             <span className="tag">Upcoming</span>
-            <span>August 29-30, 2026</span>
+            <span>October 12-13, 2026</span>
           </div>
 
           <h3>EvoHacks I</h3>
