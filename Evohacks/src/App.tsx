@@ -243,7 +243,8 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
   ];
 
   const facts = [
-    ["◫", "Date", "October 12-13, 2026"],
+    ["◫", "Date", "November 11-12, 2026"],
+    ["◫", "Date", "October 11-12, 2026"],
     ["◎", "Format", "Online event"],
     ["$", "Cost", "Free to join"],
     ["⌂", "Who", "High school students"],
@@ -378,11 +379,12 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
             <h3>EvoHacks Premiere</h3>
 
             <p>
-              Theme: <strong>Will be revealed on the day of the event!</strong> · October 12-13, 2026
+              Theme: <strong>Build for Learning</strong> · November 11-12, 2026
+              Theme: <strong>Build for Learning</strong> · October 11-12, 2026
             </p>
 
             <p>
-              Build a project that... (HIDDEN)
+              Build a project that helps students learn something new.
             </p>
           </div>
 
@@ -420,9 +422,9 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
         </p>
 
         <div className="sponsor-grid">
-          {[1, 2, 3, 4, 5].map((number) => (
-            <Card key={number} className="sponsor-placeholder">
-              Sponsor logo
+          {["MeDo AI", "InterviewBuddy", "1Password", "GitHub", ".xyz", "Give My Certificate"].map((sponsor) => (
+            <Card key={sponsor} className="sponsor-placeholder">
+              {sponsor}
             </Card>
           ))}
         </div>
@@ -536,6 +538,58 @@ function AboutPage() {
   );
 }
 
+const prizeItems = [
+  {
+    title: "1st Place",
+    winners: "1 winner",
+    detail: "1,500 MeDO AI credits, InterviewBuddy practice credits, one year of 1Password and GitHub developer perks, a digital winner certificate, and 4 .xyz domains.",
+  },
+  {
+    title: "2nd Place",
+    winners: "1 winner",
+    detail: "1,000 MeDo AI credits, InterviewBuddy practice credits, one year of 1Password and GitHub developer perks, a digital winner certificate, and 2 .xyz domains.",
+  },
+  {
+    title: "3rd Place",
+    winners: "1 winner",
+    detail: "500 MeDo AI credits, a digital certificate, and 1 .xyz domain.",
+  },
+  {
+    title: "Organizer’s Favorite",
+    winners: "2 winners",
+    detail: "2 .xyz domains for the organizer’s favorite submissions.",
+  },
+  {
+    title: "All Participants",
+    winners: "100 participants",
+    detail: "300 MeDo credits, 10% off a MeDo subscription, InterviewBuddy discount coupons, one year of 1Password through the GitHub Student Pack, and a digital participation certificate via Give My Certificate.",
+  },
+];
+
+function PrizeSection() {
+  return (
+    <Reveal className="page-section">
+      <div className="section-label">Prizes</div>
+      <h2>Something for every builder</h2>
+      <p className="lead">
+        Explore the awards for EvoHacks Premiere. Select a prize to see what it includes.
+      </p>
+      <div className="three-column-grid">
+        {prizeItems.map((prize) => (
+          <Card key={prize.title} className="prize-card">
+            <details>
+              <summary>
+                <span>{prize.title}</span>
+                <small>{prize.winners}</small>
+              </summary>
+              <p>{prize.detail}</p>
+            </details>
+          </Card>
+        ))}
+      </div>
+    </Reveal>
+  );
+}
 function HackathonsPage() {
   return (
     <main className="page">
@@ -553,7 +607,8 @@ function HackathonsPage() {
         <Card className="hackathon-card">
           <div className="event-top">
             <span className="tag">Upcoming</span>
-            <span>October 12-13, 2026</span>
+            <span>November 11-12, 2026</span>
+            <span>October 11-12, 2026</span>
           </div>
 
           <h3>EvoHacks I</h3>
@@ -570,7 +625,7 @@ function HackathonsPage() {
             <Button onClick={openRegistration}>
               Register
             </Button>
-            <Button secondary>View details</Button>
+            
           </div>
         </Card>
       </Reveal>
@@ -582,6 +637,8 @@ function HackathonsPage() {
         <h2 className="spaced-heading">Past</h2>
         <p>Completed events will appear here.</p>
       </Reveal>
+
+      <PrizeSection />
     </main>
   );
 }
@@ -1354,3 +1411,7 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
