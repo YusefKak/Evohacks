@@ -243,8 +243,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
   ];
 
   const facts = [
-    ["◫", "Date", "November 11-12, 2026"],
-    ["◫", "Date", "October 11-12, 2026"],
+    ["◫", "Date", "October 10-11, 2026"],
     ["◎", "Format", "Online event"],
     ["$", "Cost", "Free to join"],
     ["⌂", "Who", "High school students"],
@@ -379,8 +378,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
             <h3>EvoHacks Premiere</h3>
 
             <p>
-              Theme: <strong>Build for Learning</strong> · November 11-12, 2026
-              Theme: <strong>Build for Learning</strong> · October 11-12, 2026
+              Theme: <strong>Build for Learning</strong> · October 10-11, 2026
             </p>
 
             <p>
@@ -607,8 +605,7 @@ function HackathonsPage() {
         <Card className="hackathon-card">
           <div className="event-top">
             <span className="tag">Upcoming</span>
-            <span>November 11-12, 2026</span>
-            <span>October 11-12, 2026</span>
+            <span>October 10-11, 2026</span>
           </div>
 
           <h3>EvoHacks I</h3>
