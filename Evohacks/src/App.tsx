@@ -420,7 +420,7 @@ function HomePage({ changePage }: { changePage: (page: Page) => void }) {
         </p>
 
         <div className="sponsor-grid">
-          {["MeDo AI", "InterviewBuddy", "1Password", "GitHub", ".xyz", "Give My Certificate"].map((sponsor) => (
+          {["MeDo AI", "InterviewBuddy", ".xyz", "Give My Certificate"].map((sponsor) => (
             <Card key={sponsor} className="sponsor-placeholder">
               {sponsor}
             </Card>
@@ -540,12 +540,12 @@ const prizeItems = [
   {
     title: "1st Place",
     winners: "1 winner",
-    detail: "1,500 MeDO AI credits, InterviewBuddy practice credits, one year of 1Password and GitHub developer perks, a digital winner certificate, and 4 .xyz domains.",
+    detail: "1,500 MeDO AI credits, InterviewBuddy practice credits, a digital winner certificate, and 4 .xyz domains.",
   },
   {
     title: "2nd Place",
     winners: "1 winner",
-    detail: "1,000 MeDo AI credits, InterviewBuddy practice credits, one year of 1Password and GitHub developer perks, a digital winner certificate, and 2 .xyz domains.",
+    detail: "1,000 MeDo AI credits, InterviewBuddy practice credits, a digital winner certificate, and 2 .xyz domains.",
   },
   {
     title: "3rd Place",
@@ -560,7 +560,7 @@ const prizeItems = [
   {
     title: "All Participants",
     winners: "100 participants",
-    detail: "300 MeDo credits, 10% off a MeDo subscription, InterviewBuddy discount coupons, one year of 1Password through the GitHub Student Pack, and a digital participation certificate via Give My Certificate.",
+    detail: "300 MeDo credits, 10% off a MeDo subscription, InterviewBuddy discount coupons, and a digital participation certificate via Give My Certificate.",
   },
 ];
 
