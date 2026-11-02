@@ -1,88 +1,169 @@
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef} from 'react';
 import * as T from 'three';
+import {RoomEnvironment} from 'three/examples/jsm/environments/RoomEnvironment.js';
+import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from 'three/examples/jsm/postprocessing/OutputPass.js';
+import {ROWS, COUNT, bonds, links, sample, stageProgress, clamp} from './evolution-model';
 
-// One scene, one animation loop. Scroll mutates GPU buffers, never React state.
-export default function Evolution({still,onFail}:{still:boolean;onFail:()=>void}) {
- const host=useRef<HTMLDivElement>(null);
- useEffect(()=>{
-  const el=host.current!; let renderer:T.WebGLRenderer;
-  try { renderer=new T.WebGLRenderer({alpha:true,antialias:window.innerWidth>700,powerPreference:'low-power'}); } catch {onFail();return;}
-  renderer.setPixelRatio(Math.min(devicePixelRatio,window.innerWidth<700?1.25:1.75));
-  renderer.setClearColor(0x05070d,0); renderer.outputColorSpace=T.SRGBColorSpace;
-  el.appendChild(renderer.domElement);
-  const scene=new T.Scene();scene.fog=new T.FogExp2(0x05070d,.018);
-  const camera=new T.PerspectiveCamera(35,1,.1,80);camera.position.z=14;
-  const organism=new T.Group();scene.add(organism);
-  scene.add(new T.AmbientLight(0x537bbd,2));
-  const light=new T.PointLight(0x8acaff,45,20);light.position.set(3,3,5);scene.add(light);
-  const rim=new T.PointLight(0x164dff,50,20);rim.position.set(-3,-2,2);scene.add(rim);
-  const rows=100,count=rows*2, positions=new Float32Array(count*3),dna=new Float32Array(count*3),neural=new Float32Array(count*3);
-  for(let i=0;i<count;i++){
-   const row=Math.floor(i/2),strand=i%2, y=(row/(rows-1)-.5)*7,angle=row*.115+strand*Math.PI;
-   dna.set([Math.cos(angle)*1.05,y,Math.sin(angle)*1.05],i*3);
-   const phi=Math.acos(1-2*(i+.5)/count),theta=i*2.39996323;
-   const r=2.6+.27*Math.sin(i*3.7);
-   neural.set([r*Math.sin(phi)*Math.cos(theta),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(theta)],i*3);
-  }
-  const geometry=new T.IcosahedronGeometry(.055,1),material=new T.MeshStandardMaterial({color:0x79bdff,metalness:.85,roughness:.2,emissive:0x247aff,emissiveIntensity:1.2});
-  const nodes=new T.InstancedMesh(geometry,material,count);nodes.frustumCulled=false;organism.add(nodes);
-  const matrix=new T.Object3D();
-  const pairs:number[]=[];
-  for(let i=0;i<count;i++){
-   if(i+2<count)pairs.push(i,i+2);
-   if(i%2===0)pairs.push(i,i+1);
-  }
-  const networkPairs:number[]=[];
-  for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){
-   const dx=neural[i*3]-neural[j*3],dy=neural[i*3+1]-neural[j*3+1],dz=neural[i*3+2]-neural[j*3+2];
-   if(dx*dx+dy*dy+dz*dz<1.8)networkPairs.push(i,j);
-  }
-  const makeLines=(p:number[],color:number,opacity:number)=>{
-   const g=new T.BufferGeometry();g.setAttribute('position',new T.BufferAttribute(new Float32Array(p.length*3),3));
-   const m=new T.LineBasicMaterial({color,transparent:true,opacity,blending:T.AdditiveBlending,depthWrite:false});
-   const l=new T.LineSegments(g,m);l.frustumCulled=false;organism.add(l);return l;
-  };
-  const rails=makeLines(pairs,0x7abfff,.7),network=makeLines(networkPairs,0x398aff,0);
-  // Parallel micro-filaments give the backbone a physically dimensional surface.
-  const backbones:T.Mesh<T.TubeGeometry,T.MeshStandardMaterial>[]=[];
-  for(let strand=0;strand<2;strand++){const pts=[];for(let i=0;i<180;i++){const a=i/179*99*.115+strand*Math.PI;pts.push(new T.Vector3(Math.cos(a)*1.05,(i/179-.5)*7,Math.sin(a)*1.05));}const curve=new T.CatmullRomCurve3(pts);const mesh=new T.Mesh(new T.TubeGeometry(curve,180,.035,6,false),new T.MeshStandardMaterial({color:0x1f4c96,metalness:.9,roughness:.18,emissive:0x1265dd,emissiveIntensity:.7,transparent:true}));organism.add(mesh);backbones.push(mesh);}
-  const filaments:T.Line[]=[];
-  for(let strand=0;strand<2;strand++)for(let k=0;k<10;k++){
-   const pts=[];for(let i=0;i<180;i++){const y=(i/179-.5)*7,a=i/179*99*.115+strand*Math.PI;const r=1.05+Math.cos(k/10*Math.PI*2)*.055;pts.push(new T.Vector3(Math.cos(a)*r,y+Math.sin(k/10*Math.PI*2)*.055,Math.sin(a)*r));}
-   const l=new T.Line(new T.BufferGeometry().setFromPoints(pts),new T.LineBasicMaterial({color:k%3===0?0xa7d8ff:0x2563eb,transparent:true,opacity:.8,blending:T.AdditiveBlending}));organism.add(l);filaments.push(l);
-  }
-  const texCanvas=document.createElement('canvas');texCanvas.width=64;texCanvas.height=64;const ctx=texCanvas.getContext('2d')!;const grad=ctx.createRadialGradient(32,32,0,32,32,32);grad.addColorStop(0,'white');grad.addColorStop(.13,'#80caff');grad.addColorStop(.4,'#1a59b980');grad.addColorStop(1,'#00000000');ctx.fillStyle=grad;ctx.fillRect(0,0,64,64);const tex=new T.CanvasTexture(texCanvas);
-  const glowG=new T.BufferGeometry();glowG.setAttribute('position',new T.BufferAttribute(positions,3));
-  const glows=new T.Points(glowG,new T.PointsMaterial({map:tex,color:0x65aaff,size:.34,transparent:true,blending:T.AdditiveBlending,depthWrite:false}));glows.frustumCulled=false;organism.add(glows);
-  const starsG=new T.BufferGeometry(),stars=new Float32Array(180*3);for(let i=0;i<stars.length;i++)stars[i]=Math.sin(i*137.27)*18;starsG.setAttribute('position',new T.BufferAttribute(stars,3));scene.add(new T.Points(starsG,new T.PointsMaterial({color:0x6797c9,size:.018,transparent:true,opacity:.45})));
-  let target=0,progress=0,mx=0,my=0,frame=0,last=0,elapsed=0;const start=performance.now();
-  const bounds:{top:number}[]=[];
-  const scroll=()=>{const y=scrollY+innerHeight*.35;let p=0;for(let i=0;i<bounds.length-1;i++)if(y>=bounds[i].top)p=i+Math.min(1,(y-bounds[i].top)/Math.max(1,bounds[i+1].top-bounds[i].top));target=Math.min(4,p);};
-  const resize=()=>{renderer.setSize(el.clientWidth,el.clientHeight);camera.aspect=el.clientWidth/el.clientHeight;camera.updateProjectionMatrix();bounds.splice(0,bounds.length,...Array.from(document.querySelectorAll('[data-stage]')).map(e=>({top:e.getBoundingClientRect().top+scrollY})));scroll();};
-  const pointer=(e:PointerEvent)=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5);};
-  resize();const ro=new ResizeObserver(resize);ro.observe(document.body);window.addEventListener('resize',resize);window.addEventListener('scroll',scroll,{passive:true});window.addEventListener('pointermove',pointer,{passive:true});
-  const updateLines=(l:T.LineSegments,p:number[])=>{const a=l.geometry.attributes.position as T.BufferAttribute;for(let i=0;i<p.length;i++){a.setXYZ(i,positions[p[i]*3],positions[p[i]*3+1],positions[p[i]*3+2]);}a.needsUpdate=true;};
-  const animate=(time:number)=>{
-   frame=requestAnimationFrame(animate);if(document.hidden||time-last<(innerWidth<700?32:16))return;last=time;
-   if(!still)elapsed+=.016;
-   progress=still?target:progress+(target-progress)*.065;
-   const morph=T.MathUtils.smoothstep(progress,1.1,2.8),birth=still?1:T.MathUtils.smoothstep((time-start)/1000,0,1.8);
-   const spread=.025+.975*birth;
-   for(let i=0;i<count;i++){
-    for(let j=0;j<3;j++)positions[i*3+j]=T.MathUtils.lerp(dna[i*3+j],neural[i*3+j],morph)*spread;
-    matrix.position.fromArray(positions,i*3);matrix.scale.setScalar(.7+.35*Math.sin(i*.8+elapsed*2));matrix.updateMatrix();nodes.setMatrixAt(i,matrix.matrix);
-   }
-   nodes.instanceMatrix.needsUpdate=true;glowG.attributes.position.needsUpdate=true;updateLines(rails,pairs);updateLines(network,networkPairs);
-   backbones.forEach(mesh=>{mesh.material.opacity=(1-morph)*birth;mesh.scale.setScalar(spread);});
-   rails.material.opacity=.65*(1-morph)+.12;network.material.opacity=morph*.3;
-   filaments.forEach(l=>{(l.material as T.LineBasicMaterial).opacity=(1-morph)*.8*birth;l.scale.setScalar(spread);});
-   organism.rotation.set(.08+(still?0:my*.13),elapsed*.14+progress*.65,-.32+Math.sin(progress*.9)*.25);
-   organism.position.x=innerWidth<700?0:1.25-Math.sin(progress*.7)*.6;
-   camera.position.z=innerWidth<700?17:14+Math.sin(progress)*.8+Math.max(0,progress-3)*1.5;
-   camera.position.x=still?0:mx*.3;light.position.x=3+Math.sin(elapsed)*2;renderer.render(scene,camera);
-  };frame=requestAnimationFrame(animate);
-  const lost=(e:Event)=>{e.preventDefault();onFail();};renderer.domElement.addEventListener('webglcontextlost',lost);
-  return()=>{cancelAnimationFrame(frame);ro.disconnect();window.removeEventListener('resize',resize);window.removeEventListener('scroll',scroll);window.removeEventListener('pointermove',pointer);renderer.domElement.removeEventListener('webglcontextlost',lost);scene.traverse(o=>{const m=o as T.Mesh;if(m.geometry)m.geometry.dispose();if(m.material)(Array.isArray(m.material)?m.material:[m.material]).forEach(x=>x.dispose());});tex.dispose();renderer.dispose();el.replaceChildren();};
- },[still,onFail]);
- return <div className="three-host" ref={host} aria-hidden="true"/>;
+export default function Evolution({still, onFail}: {still: boolean; onFail: () => void}) {
+  const host = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = host.current!;
+    let renderer: T.WebGLRenderer;
+    try { renderer = new T.WebGLRenderer({alpha: true, antialias: false, powerPreference: 'default'}); }
+    catch { onFail(); return; }
+    const mobile = innerWidth < 760;
+    renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.5));
+    renderer.setClearColor(0x05070d, 0);
+    renderer.toneMapping = T.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    el.appendChild(renderer.domElement);
+    const scene = new T.Scene();
+    scene.fog = new T.FogExp2(0x05070d, .035);
+    const camera = new T.PerspectiveCamera(36, 1, .1, 60);
+    const organism = new T.Group(); scene.add(organism);
+    // A tiny procedural studio environment gives the metal actual reflections.
+    const room = new RoomEnvironment(), pmrem = new T.PMREMGenerator(renderer);
+    const environment = pmrem.fromScene(room, .05);
+    scene.environment = environment.texture;
+    room.dispose(); pmrem.dispose();
+    scene.add(new T.AmbientLight(0x779bda, .6));
+    const key = new T.PointLight(0xaddbff, 65, 25); key.position.set(3, 4, 5); scene.add(key);
+    const rim = new T.PointLight(0x2463ff, 45, 20); rim.position.set(-4, -1, 2); scene.add(rim);
+    const positions = new Float32Array(COUNT * 3);
+    const nodeMaterial = new T.MeshStandardMaterial({color: 0x83baff, metalness: .85, roughness: .22, emissive: 0x1351b5, emissiveIntensity: .6});
+    const nodes = new T.InstancedMesh(new T.IcosahedronGeometry(.05, 1), nodeMaterial, COUNT);
+    nodes.instanceMatrix.setUsage(T.DynamicDrawUsage); nodes.frustumCulled = false; organism.add(nodes);
+    const matrix = new T.Object3D();
+    function lines(pairs: number[], color: number) {
+      const geometry = new T.BufferGeometry();
+      geometry.setAttribute('position', new T.BufferAttribute(new Float32Array(pairs.length * 3), 3).setUsage(T.DynamicDrawUsage));
+      const line = new T.LineSegments(geometry, new T.LineBasicMaterial({color, transparent: true, opacity: .3, blending: T.AdditiveBlending, depthWrite: false}));
+      line.frustumCulled = false; organism.add(line); return line;
+    }
+    const rails = lines(bonds, 0x7fbaff), network = lines(links, 0x448dff);
+    // Tubular backbones deform in-place, rather than fading a static helix away.
+    const tubeMaterial = new T.MeshStandardMaterial({color: 0x163666, metalness: .95, roughness: .2, emissive: 0x11458c, emissiveIntensity: .65, transparent: true});
+    const tubes: T.Mesh<T.BufferGeometry, T.MeshStandardMaterial>[] = [];
+    const SIDES = 8;
+    for (let strand = 0; strand < 2; strand++) {
+      const g = new T.BufferGeometry(), indices: number[] = [];
+      g.setAttribute('position', new T.BufferAttribute(new Float32Array(ROWS * SIDES * 3), 3).setUsage(T.DynamicDrawUsage));
+      g.setAttribute('normal', new T.BufferAttribute(new Float32Array(ROWS * SIDES * 3), 3).setUsage(T.DynamicDrawUsage));
+      for (let row = 0; row < ROWS - 1; row++) for (let j = 0; j < SIDES; j++) {
+        const a = row * SIDES + j, b = row * SIDES + (j + 1) % SIDES;
+        indices.push(a, b, a + SIDES, b, b + SIDES, a + SIDES);
+      }
+      g.setIndex(indices);
+      const mesh = new T.Mesh(g, tubeMaterial); mesh.frustumCulled = false; tubes.push(mesh); organism.add(mesh);
+    }
+    const tangent = new T.Vector3(), normal = new T.Vector3(), binormal = new T.Vector3(), axis = new T.Vector3();
+    function updateTubes() {
+      tubes.forEach((mesh, strand) => {
+        const a = mesh.geometry.attributes.position as T.BufferAttribute, n = mesh.geometry.attributes.normal as T.BufferAttribute;
+        for (let row = 0; row < ROWS; row++) {
+          const idx = (row * 2 + strand) * 3, before = (Math.max(0, row - 1) * 2 + strand) * 3, after = (Math.min(ROWS - 1, row + 1) * 2 + strand) * 3;
+          tangent.set(positions[after] - positions[before], positions[after + 1] - positions[before + 1], positions[after + 2] - positions[before + 2]).normalize();
+          axis.set(0, Math.abs(tangent.y) > .9 ? 0 : 1, Math.abs(tangent.y) > .9 ? 1 : 0);
+          normal.crossVectors(tangent, axis).normalize(); binormal.crossVectors(tangent, normal).normalize();
+          for (let j = 0; j < SIDES; j++) {
+            const angle = j / SIDES * Math.PI * 2, c = Math.cos(angle), s = Math.sin(angle);
+            const nx = normal.x * c + binormal.x * s, ny = normal.y * c + binormal.y * s, nz = normal.z * c + binormal.z * s;
+            a.setXYZ(row * SIDES + j, positions[idx] + nx * .045, positions[idx + 1] + ny * .045, positions[idx + 2] + nz * .045);
+            n.setXYZ(row * SIDES + j, nx, ny, nz);
+          }
+        }
+        a.needsUpdate = true; n.needsUpdate = true;
+      });
+    }
+    const spriteCanvas = document.createElement('canvas'); spriteCanvas.width = spriteCanvas.height = 64;
+    const ctx = spriteCanvas.getContext('2d')!;
+    const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    gradient.addColorStop(0, '#effaff'); gradient.addColorStop(.12, '#82c5ff'); gradient.addColorStop(.4, '#367dce60'); gradient.addColorStop(1, '#00000000');
+    ctx.fillStyle = gradient; ctx.fillRect(0, 0, 64, 64);
+    const texture = new T.CanvasTexture(spriteCanvas);
+    const glowGeometry = new T.BufferGeometry(); glowGeometry.setAttribute('position', new T.BufferAttribute(positions, 3));
+    const glowMaterial = new T.PointsMaterial({map: texture, size: .23, color: 0x89c5ff, transparent: true, blending: T.AdditiveBlending, depthWrite: false});
+    const glow = new T.Points(glowGeometry, glowMaterial); glow.frustumCulled = false; organism.add(glow);
+    const pulsePositions = new Float32Array(18 * 3), pulseGeometry = new T.BufferGeometry();
+    pulseGeometry.setAttribute('position', new T.BufferAttribute(pulsePositions, 3));
+    const pulses = new T.Points(pulseGeometry, new T.PointsMaterial({map: texture, color: 0xc4e7ff, size: .32, transparent: true, blending: T.AdditiveBlending, depthWrite: false}));
+    pulses.frustumCulled = false; organism.add(pulses);
+    const dustGeometry = new T.BufferGeometry(), dustPositions = new Float32Array((mobile ? 70 : 160) * 3);
+    for (let i = 0; i < dustPositions.length; i++) dustPositions[i] = Math.sin(i * 127.31 + 1) * 11;
+    dustGeometry.setAttribute('position', new T.BufferAttribute(dustPositions, 3));
+    const dust = new T.Points(dustGeometry, new T.PointsMaterial({size: .025, color: 0x6e9fda, transparent: true, opacity: .35, depthWrite: false})); scene.add(dust);
+    // Restrained bloom only on desktop; mobile retains inexpensive sprite halos.
+    const composer = mobile ? null : new EffectComposer(renderer);
+    let bloom: UnrealBloomPass | null = null;
+    if (composer) {
+      composer.addPass(new RenderPass(scene, camera));
+      bloom = new UnrealBloomPass(new T.Vector2(1, 1), .3, .65, .85);
+      composer.addPass(bloom); composer.addPass(new OutputPass());
+    }
+    let frame = 0, previous = 0, elapsed = 0, progress = 0, target = 0, mx = 0, my = 0, px = 0, py = 0, dirty = true;
+    let tops: number[] = [];
+    const scroll = () => { target = stageProgress(tops, scrollY); dirty = true; };
+    const resize = () => {
+      const w = Math.max(1, el.clientWidth), h = Math.max(1, el.clientHeight);
+      renderer.setSize(w, h); composer?.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+      tops = Array.from(document.querySelectorAll('[data-stage]')).map(e => e.getBoundingClientRect().top + scrollY); scroll();
+    };
+    const pointer = (e: PointerEvent) => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; };
+    const ro = new ResizeObserver(resize); ro.observe(document.body); resize();
+    addEventListener('resize', resize); addEventListener('scroll', scroll, {passive: true}); addEventListener('pointermove', pointer, {passive: true});
+    const updateLines = (line: typeof rails, pairs: number[]) => {
+      const a = line.geometry.attributes.position as T.BufferAttribute;
+      for (let i = 0; i < pairs.length; i++) a.setXYZ(i, positions[pairs[i] * 3], positions[pairs[i] * 3 + 1], positions[pairs[i] * 3 + 2]);
+      a.needsUpdate = true;
+    };
+    const animate = (time: number) => {
+      frame = requestAnimationFrame(animate);
+      if (document.hidden) { previous = time; return; }
+      if (time - previous < (mobile ? 32 : 16)) return;
+      const dt = Math.min((time - previous) / 1000, .05); previous = time;
+      if (still && !dirty) return;
+      dirty = false;
+      if (!still) elapsed += dt;
+      const ease = 1 - Math.exp(-dt * 7);
+      progress = still ? target : progress + (target - progress) * ease;
+      px += (mx - px) * ease; py += (my - py) * ease;
+      sample(progress, positions);
+      const neural = clamp(1 - Math.abs(progress - 3)), body = 1 - neural;
+      for (let i = 0; i < COUNT; i++) {
+        matrix.position.fromArray(positions, i * 3); matrix.scale.setScalar(.75 + .2 * Math.sin(i * .9 + elapsed)); matrix.updateMatrix(); nodes.setMatrixAt(i, matrix.matrix);
+      }
+      nodes.instanceMatrix.needsUpdate = true; glowGeometry.attributes.position.needsUpdate = true;
+      updateTubes(); updateLines(rails, bonds); updateLines(network, links);
+      tubeMaterial.opacity = body * .92; tubes.forEach(t => t.visible = body > .02);
+      rails.material.opacity = .32 * body + .025; network.material.opacity = neural * .44;
+      glowMaterial.size = .2 + neural * .06;
+      for (let i = 0; i < 18; i++) {
+        const pairs = neural > .5 ? links : bonds;
+        const t = (elapsed * .11 + i / 18) % 1, edge = Math.floor(t * pairs.length / 2) * 2, f = t * pairs.length / 2 % 1;
+        for (let c = 0; c < 3; c++) pulsePositions[i * 3 + c] = T.MathUtils.lerp(positions[pairs[edge] * 3 + c], positions[pairs[edge + 1] * 3 + c], f);
+      }
+      pulseGeometry.attributes.position.needsUpdate = true;
+      organism.rotation.set(.08 + Math.sin(progress * 1.3) * .2 + (still ? 0 : py * .09), elapsed * .09 + progress * .48, -.22 + Math.sin(progress) * .16);
+      organism.position.set(mobile ? 0 : 1.15 - Math.sin(progress * .8) * .3, Math.sin(progress * 1.4) * .16, 0);
+      camera.position.set(still ? 0 : px * .45, Math.sin(progress * 1.2) * .35, (mobile ? 17 : 14.2) - Math.sin(progress * Math.PI / 4) * 1.1 + Math.max(0, progress - 3) * 1.1);
+      camera.lookAt(.25, 0, 0);
+      dust.rotation.y = elapsed * .008;
+      key.position.x = 3 + Math.sin(elapsed * .3) * 1.5;
+      if (bloom) bloom.strength = .26 + neural * .12;
+      if (composer) composer.render(); else renderer.render(scene, camera);
+    };
+    frame = requestAnimationFrame(animate);
+    const lost = (e: Event) => { e.preventDefault(); onFail(); };
+    renderer.domElement.addEventListener('webglcontextlost', lost);
+    return () => {
+      cancelAnimationFrame(frame); ro.disconnect(); removeEventListener('resize', resize); removeEventListener('scroll', scroll); removeEventListener('pointermove', pointer);
+      renderer.domElement.removeEventListener('webglcontextlost', lost);
+      scene.traverse(o => {const m = o as T.Mesh; m.geometry?.dispose(); if(m.material) (Array.isArray(m.material) ? m.material : [m.material]).forEach(x => x.dispose());});
+      composer?.passes.forEach(p => p.dispose()); composer?.dispose(); texture.dispose(); environment.dispose(); renderer.dispose(); el.replaceChildren();
+    };
+  }, [still, onFail]);
+  return <div className="three-host" ref={host} aria-hidden="true"/>;
 }

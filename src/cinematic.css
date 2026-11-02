@@ -1,0 +1,75 @@
+/* Additive polish: does not replace the site's content or existing stylesheet. */
+.app { isolation: isolate; }
+.app .ambient {
+  background: radial-gradient(ellipse at 76% 38%, #12397048, transparent 55%),
+    radial-gradient(ellipse at 90% 80%, #14336724, transparent 45%);
+}
+.app .ambient::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 58%, #6dafff05 60%, transparent 63%, #6dafff04 68%, transparent 70%);
+}
+.app .scene::after {
+  background: linear-gradient(90deg, #05070d, transparent 26%, transparent 91%, #05070d55);
+}
+.app .button {
+  position: relative; overflow: hidden; font-size: 16px;
+  background: linear-gradient(135deg, #3479f5, #2057dc);
+  box-shadow: inset 0 1px 0 #b9d7ff38, 0 5px 25px #1251dc18;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.app .button:hover { box-shadow: inset 0 1px 0 #d7e8ff55, 0 8px 35px #2563eb45; border-color: #a4ceff; }
+.app .button span, .app .text-link span { transition: transform .25s; }
+.app .button:hover span, .app .text-link:hover span { transform: translate(3px, -2px); }
+.app nav, .app .text-link, .app .menu-toggle { font-size: 16px; }
+.app nav a { transition: color .25s, border-color .25s; }
+.app .nav-cta:hover { border-color: #80baff; }
+.app .hero-copy p { font-size: 21px; line-height: 1.7; color: #bdc9dc; }
+.app .chapter p, .app .chapter details p, .app .judges p,
+.app .winner-grid .winner-people, .app .legal-page p, .app .legal-page li {
+  font-size: 17px; line-height: 1.8; color: #bdc9dc;
+}
+.app .chapter summary, .app .event-facts, .app form label,
+.app input, .app textarea, .app select { font-size: 16px; }
+.app :is(.eyebrow, .hero-topline, .event-caption, .hero-bottom,
+.chapter-heading > span, .values-strip, .stats div > span, .event-facts small,
+.schedule-grid small, .schedule-heading > span, .supporter-ribbon > a,
+.subheading > span, .subheading > a, .winner-award > strong, .pill,
+.fineprint, .future > small, form small, .footer-bottom, .motion-control button) {
+  font-size: 12px; line-height: 1.6; color: #acbdd6; letter-spacing: .6px;
+}
+.app .hero .eyebrow { font-size: 12px; letter-spacing: .6px; }
+.app .footer-top p, .app .footer-top > div,
+.app .judges article > span:last-child { font-size: 14px; }
+.app .hero-topline, .app .event-caption { flex-wrap: wrap; gap: 12px; }
+.app .edition { padding: 5px 10px; background: #050b16bb; border-left: 1px solid #4477b744; }
+.app .chapter-index a { font-size: 11px; min-height: 26px; padding: 3px; }
+.app .chapter-index i { transition: box-shadow .4s, background .4s; }
+.app .chapter-index .current i { box-shadow: 0 0 0 4px #448aff15, 0 0 15px #488eff; }
+.app .winner-grid article { transition: background .3s, box-shadow .3s; }
+.app .winner-grid article:hover { box-shadow: inset 0 1px 0 #6ba7ff70; background: #102345b0; }
+.app .event-facts > div, .app .schedule-grid article { min-width: 0; }
+.app .hero-bottom { gap: 20px; }
+@media (min-width: 701px) and (max-width: 1150px) {
+  .app nav { gap: 14px; font-size: 13px; }
+  .app .nav-cta { padding: 12px; }
+  .app .brand { font-size: 17px; }
+}
+@media (max-width: 700px) {
+  .app .hero { height: auto; min-height: 950px; max-height: none; }
+  .app .hero-copy p { font-size: 18px; }
+  .app .hero-copy { padding-top: 230px; }
+  .app .hero-topline { font-size: 10px; }
+  .app .hero .eyebrow { font-size: 10px; }
+  .app .hero-bottom { font-size: 10px; }
+  .app .stats div > span { font-size: 10px; }
+  .app .stats strong { font-size: 37px; }
+  .app .event-caption { font-size: 10px; gap: 8px; }
+  .app .scene::after { background: linear-gradient(0deg, #05070d, transparent 60%), linear-gradient(90deg, #05070dbb, transparent); }
+  .app .directions { grid-template-columns: 1fr; }
+  .app .directions article, .app .directions article + article { padding: 24px 0; border-right: 0; }
+  .app .form-row { flex-wrap: wrap; gap: 0; }
+  .app .form-row > label { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app *, .app *::before, .app *::after { animation: none !important; transition: none !important; }
+}
