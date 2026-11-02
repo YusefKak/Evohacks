@@ -20,7 +20,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./Evohacks
+        working-directory: .
 
     steps:
       - name: Checkout
@@ -45,7 +45,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./Evohacks/dist
+          path: ./dist
 
   deploy:
     needs: build
