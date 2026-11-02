@@ -73,3 +73,9 @@
 @media (prefers-reduced-motion: reduce) {
   .app *, .app *::before, .app *::after { animation: none !important; transition: none !important; }
 }
+
+.app .supporter-ribbon {
+  background: rgba(8, 14, 24, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
