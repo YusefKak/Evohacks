@@ -64,3 +64,13 @@
 .app .sponsor-wall .certificate .sponsor-name > span {
   position: static;
 }
+
+.app .supporter-ribbon .sponsor-logo-certificate,
+.app .sponsor-wall .sponsor-logo-certificate {
+  width: 80px;
+  height: 80px;
+}
+
+.app .sponsor-wall > .certificate {
+  font-size: 20px;
+}
