@@ -1,0 +1,20 @@
+/* Sponsor links: preserve the ribbon background and existing theme. */
+.app .supporter-ribbon { flex-wrap: wrap; }
+.app .supporter-ribbon > .sponsor-link { font: 500 19px 'Space Grotesk', sans-serif; letter-spacing: -.5px; color: #d2dceb; grid-column: auto; }
+.app .sponsor-wall { flex-wrap: wrap; }
+.app .sponsor-wall > a { font-size: 32px; font-weight: 700; letter-spacing: -1.5px; }
+.app .sponsor-wall > .interview { font-size: 25px; }
+.app .sponsor-wall > .xyz { font-size: 62px; }
+.app .sponsor-wall > .certificate { font-size: 14px; letter-spacing: 2px; }
+.app .sponsor-wall > .codecrafters { font-size: 28px; }
+.app .sponsor-wall > a, .app .supporter-ribbon > .sponsor-link { transition: color .2s; }
+.app .sponsor-wall > a:hover, .app .supporter-ribbon > .sponsor-link:hover { color: #79abff; }
+.app .sponsor-wall > a:focus-visible, .app .supporter-ribbon > .sponsor-link:focus-visible { outline: 2px solid #80baff; outline-offset: 6px; }
+@media (max-width: 700px) {
+ .app .supporter-ribbon > .sponsor-link { font-size: 16px; }
+ .app .sponsor-wall > a { font-size: 26px; }
+ .app .sponsor-wall > .interview { font-size: 18px; }
+ .app .sponsor-wall > .xyz { font-size: 48px; }
+ .app .sponsor-wall > .certificate { font-size: 14px; }
+ .app .sponsor-wall > .codecrafters { font-size: 24px; }
+}
