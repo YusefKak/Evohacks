@@ -36,3 +36,31 @@
  .app .supporter-ribbon .sponsor-logo-interviewbuddy { width: 125px; height: auto; }
  .app .sponsor-wall .sponsor-logo-interviewbuddy { width: 145px; }
 }
+
+.app .supporter-ribbon .sponsor-logo,
+.app .sponsor-wall .sponsor-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.app .sponsor-wall > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Restore InterviewBuddy’s name beside its icon */
+.app .sponsor-logo-interviewbuddy + .sponsor-name {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+}
+
+/* Stop the certificate text overlapping its logo */
+.app .sponsor-wall .certificate .sponsor-name,
+.app .sponsor-wall .certificate .sponsor-name > span {
+  position: static;
+}
