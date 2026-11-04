@@ -18,3 +18,21 @@
  .app .sponsor-wall > .certificate { font-size: 14px; }
  .app .sponsor-wall > .codecrafters { font-size: 24px; }
 }
+
+/* Local official brand assets, with readable linked sponsor names. */
+.app .supporter-ribbon > .sponsor-link, .app .sponsor-wall > a { display: inline-flex; align-items: center; gap: 12px; }
+.app .sponsor-logo { display: block; width: 46px; height: 40px; object-fit: contain; flex-shrink: 0; }
+.app .sponsor-wall .sponsor-logo { width: 64px; height: 56px; }
+.app .sponsor-logo-interviewbuddy { width: 150px; height: auto; border-radius: 4px; }
+.app .sponsor-wall .sponsor-logo-interviewbuddy { width: 190px; height: auto; }
+.app .sponsor-logo-interviewbuddy + .sponsor-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.app .sponsor-logo-codecrafters { background: #fff; padding: 8px; border-radius: 6px; }
+.app .supporter-ribbon .sponsor-name { margin-left: 0; }
+.app .sponsor-wall .sponsor-name { font: inherit; }
+@media (max-width: 700px) {
+ .app .sponsor-wall > a { flex-direction: column; align-items: flex-start; gap: 12px; }
+ .app .supporter-ribbon > .sponsor-link { gap: 8px; }
+ .app .supporter-ribbon .sponsor-logo { width: 30px; height: 30px; }
+ .app .supporter-ribbon .sponsor-logo-interviewbuddy { width: 125px; height: auto; }
+ .app .sponsor-wall .sponsor-logo-interviewbuddy { width: 145px; }
+}
