@@ -4,7 +4,7 @@ import Fallback from './Fallback';
 import {CodeOfConductPage,PrivacyPolicyPage} from './Policies';
 const Evolution=lazy(()=>import('./Evolution'));
 const DEV='https://evohackathon2026.devpost.com';
-const DISCORD='https://discord.gg/Ag6y9MFcB';
+const DISCORD='https://discord.com/invite/A77MhsWBRQ';
 const FORM='https://docs.google.com/forms/d/e/1FAIpQLScUbbMYEwPvom53GUXhHfZ9HG2YvZzGwOeLkhnKHqnKqwq1AQ/viewform?usp=publish-editor';
 const winners=[
  {place:'1st place',number:'01',project:'EMBERLINE 3.0',people:'Panagiotis Tsimplis',description:'AI-assisted disaster response, turning requests for help into coordinated relief plans.',url:'https://devpost.com/software/emberline-3-0-from-chaos-to-coordinated-action'},
