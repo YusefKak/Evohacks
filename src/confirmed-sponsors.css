@@ -1,0 +1,20 @@
+.app .supporter-ribbon { flex-wrap: wrap; gap: 24px 32px; }
+.app .supporter-ribbon > .confirmed-sponsor,
+.app .sponsor-wall > .confirmed-sponsor {
+  display: inline-flex; align-items: center; gap: 12px;
+  grid-column: auto; min-height: 48px; max-width: 100%;
+  font: 500 19px 'Space Grotesk', sans-serif;
+  letter-spacing: -.4px; color: #d2dceb; transition: color .2s;
+}
+.app .sponsor-wall { flex-wrap: wrap; gap: 32px 40px; }
+.app .sponsor-wall > .confirmed-sponsor { font-size: 28px; }
+.app .confirmed-sponsor > img { width: 44px; height: 44px; object-fit: contain; flex: 0 0 44px; }
+.app .supporter-ribbon .confirmed-sponsor > span { margin: 0; }
+.app .confirmed-sponsor small { display: block; margin-top: 5px; font-size: 12px; letter-spacing: .4px; color: #94a3b8; }
+.app .confirmed-sponsor:hover { color: #79abff; }
+.app .confirmed-sponsor:focus-visible { outline: 2px solid #80baff; outline-offset: 6px; }
+@media (max-width: 700px) {
+ .app .supporter-ribbon > .confirmed-sponsor { font-size: 16px; gap: 8px; }
+ .app .sponsor-wall > .confirmed-sponsor { font-size: 22px; flex-wrap: wrap; }
+ .app .confirmed-sponsor > img { width: 32px; height: 32px; flex-basis: 32px; }
+}
