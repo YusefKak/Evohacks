@@ -10,6 +10,7 @@ const sponsors = [
   { name: '.xyz', url: 'https://gen.xyz/', logo: 'xyz.svg', partner: false },
   { name: 'SSOJet', url: 'https://ssojet.com/', logo: 'ssojet.svg', partner: false },
   { name: 'Praksha', url: 'https://www.praksha.app/', logo: 'praksha.png', partner: true },
+  { name: 'MojoAuth', url: 'https://mojoauth.com/', logo: 'mojoauth.png', partner: false },
 ];
 export function SponsorLinks({ compact = false }: { compact?: boolean }) {
   return <>{sponsors.map(sponsor => (
