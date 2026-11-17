@@ -6,6 +6,7 @@ import {CodeOfConductPage,PrivacyPolicyPage} from './Policies';
 const Evolution=lazy(()=>import('./Evolution'));
 const DEV='https://evohackathon2026.devpost.com';
 const DISCORD='https://discord.gg/3rpq367BFJ';
+const DEVPOST='https://evohacks2.devpost.com/';
 const FORM='https://docs.google.com/forms/d/e/1FAIpQLScUbbMYEwPvom53GUXhHfZ9HG2YvZzGwOeLkhnKHqnKqwq1AQ/viewform?usp=publish-editor';
 const winners=[
  {place:'1st place',number:'01',project:'EMBERLINE 3.0',people:'Panagiotis Tsimplis',description:'AI-assisted disaster response, turning requests for help into coordinated relief plans.',url:'https://devpost.com/software/emberline-3-0-from-chaos-to-coordinated-action'},
@@ -35,7 +36,7 @@ export default function App(){
   <main>
    <section id="home" className="hero" data-stage>
     <div className="hero-topline"><span><i className="status-dot"/> BUILT BY STUDENTS. EVOLVING TOGETHER.</span><span className="edition">EVOHACKS II / NOV 21–22</span></div>
-    <div className="hero-copy"><Label>EVOHACKS II · THE NEXT CHAPTER</Label><h1>EVO<span>HACKS</span><small>Evolve the <em>Future.</em></small></h1><p>Where bold ideas evolve into<br/> extraordinary innovations.</p><div className="actions"><a className="button" href="#event">Explore EvoHacks II <Arrow/></a><a className="text-link" href="#about">Explore EvoHacks <span>↓</span></a></div><div className="event-caption"><span className="tiny-cross">+</span> NOV 21–22, 2026 <b>·</b> ONLINE <b>·</b> HIGH SCHOOL</div></div>
+    <div className="hero-copy"><Label>EVOHACKS II · THE NEXT CHAPTER</Label><h1>EVO<span>HACKS</span><small>Evolve the <em>Future.</em></small></h1><p>Where bold ideas evolve into<br/> extraordinary innovations.</p><div className="actions"><a className="button" href={DEVPOST}>Register for EvoHacks II <Arrow/></a><a className="text-link" href="#about">Explore EvoHacks <span>↓</span></a></div><div className="event-caption"><span className="tiny-cross">+</span> NOV 21–22, 2026 <b>·</b> ONLINE <b>·</b> HIGH SCHOOL</div></div>
     <div className="specimen-label"><span className="crosshair">+</span><div>EVOLUTION / 001<br/><strong>THE BUILDING BLOCKS OF WHAT’S NEXT</strong></div></div>
     <div className="hero-bottom"><a href="#about"><span className="scroll-icon">↓</span> SCROLL TO EVOLVE</a><span>ONE IDEA. INFINITE POSSIBILITIES.</span><span>01 — 05</span></div>
    </section>
