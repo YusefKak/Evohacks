@@ -8,6 +8,48 @@ const DEV='https://evohackathon2026.devpost.com';
 const DISCORD='https://discord.gg/3rpq367BFJ';
 const DEVPOST='https://evohacks2.devpost.com/';
 const FORM='https://docs.google.com/forms/d/e/1FAIpQLScUbbMYEwPvom53GUXhHfZ9HG2YvZzGwOeLkhnKHqnKqwq1AQ/viewform?usp=publish-editor';
+const editionTwoWinners = [
+  {
+    "project": "BillBack",
+    "people": "Siddharth Tumati · Abhinav Medisetty · Anish Meruva",
+    "description": "Helps patients use a hospital’s financial assistance policy to prepare an application.",
+    "place": "1st place",
+    "number": "01",
+    "url": "https://devpost.com/software/billback"
+  },
+  {
+    "project": "FindThem",
+    "people": "Nathan Chacko · Donald Stewart",
+    "description": "Maps search areas and routes for volunteers looking for a missing person with dementia.",
+    "place": "2nd place",
+    "number": "02",
+    "url": "https://devpost.com/software/findthem"
+  },
+  {
+    "project": "MedLens",
+    "people": "Brendan Lau",
+    "description": "Makes prescription instructions easier to follow with translation, audio and printable steps.",
+    "place": "3rd place",
+    "number": "03",
+    "url": "https://devpost.com/software/medlens-hilukx"
+  },
+  {
+    "project": "Shelf Check",
+    "people": "Arnav Singh",
+    "description": "Checks medicines against official labels and highlights warnings and possible double doses.",
+    "place": "Organizer’s favorite",
+    "number": "✦",
+    "url": "https://devpost.com/software/shelf-check-uak6ce"
+  },
+  {
+    "project": "My Voice",
+    "people": "Ricardo Medrano",
+    "description": "Adapts speech recognition to an individual speaker using 30 phrases.",
+    "place": "Organizer’s favorite",
+    "number": "✦",
+    "url": "https://devpost.com/software/my-voice-5rfgol"
+  }
+];
 const winners=[
  {place:'1st place',number:'01',project:'EMBERLINE 3.0',people:'Panagiotis Tsimplis',description:'AI-assisted disaster response, turning requests for help into coordinated relief plans.',url:'https://devpost.com/software/emberline-3-0-from-chaos-to-coordinated-action'},
  {place:'2nd place',number:'02',project:'ClearMessage',people:'Hugo Kubíček · Team Trampolin',description:'A phishing-awareness assistant that explains suspicious messages and practical next steps.',url:'https://devpost.com/software/clearmessage-ai-phishing-detection'},
@@ -17,7 +59,7 @@ const winners=[
 const stages=['Origins','Connection','Innovation','Intelligence','The future'];
 const judges=[['Santosh Kumar Vududala','Automation Architect & QA Manager','Cognizant'],['Reuven M. Lerner','Python, Pandas & AI Trainer','LernerPython'],['Alok Tibrewala','Software Engineer','Independent Researcher'],['Ashly Joseph','Software Engineer','Cisco'],['Sathish Kumar Velayudam','Principal Architect','Cox Automotive'],['Chaitali Ladikkar','Software Engineer','Wellington Management'],['Carsten Jacobsen','Senior Developer Advocate','Stellar Development Foundation']];
 const prizes=[['01','1st place','$50 Zillions + $10 Amazon gift cards; 1,500 MeDo AI credits; one .xyz domain for a year; a Give My Certificate winner certificate; and a winner feature on EvoHacks.'],['02','2nd place','1,000 MeDo AI credits, one .xyz domain for a year, a digital runner-up certificate from Give My Certificate, and a second-place feature on EvoHacks.'],['03','3rd place','500 MeDo AI credits, one .xyz domain for a year, a digital third-place certificate from Give My Certificate, and a third-place feature on EvoHacks.'],['✦','Organizer’s favorite','One selected submission receives two free .xyz domains.'],['∞','Every participant','300 MeDo AI credits, a 10% discount on MeDo subscriptions, and a digital participation certificate from Give My Certificate.']];
-const faqs=[['When is EvoHacks II?','EvoHacks II begins November 21, 2026 at 9:00 a.m. Pacific. Submissions close November 22 at noon, judging ends at 2:30 p.m., and winners are announced at 3:00 p.m. All November times are PST (UTC−8).'],['How do I join EvoHacks II?','Join the Discord community for registration announcements. A new registration link and theme will be shared when available. EvoHacks I is complete; its winners and projects are preserved below.'],['Who is EvoHacks for?','High school students aged 13 and above. Beginners are welcome, with no previous hackathon experience needed. Devpost’s eligibility rules and standard country exceptions apply.'],['Is it free and fully online?','Yes. EvoHacks is free for participants and takes place entirely online.'],['Can I work alone or bring a team?','Both work. You can build solo or form a team of up to four members. Our Discord is a place to connect with other builders.'],['Can I use AI?','Yes. AI for Automation was the EvoHacks I theme. The EvoHacks II theme will be announced separately. You must understand and explain your project, contribute meaningfully, and disclose major AI tools when requested. See the Code of Conduct and event rules.'],['What did a submission need?','A project description explaining the AI automation, a public code repository, a 2–3 minute demo video, and a working deployment or local setup instructions.'],['How were projects judged?','Impact and utility, technical execution, creativity, and presentation. Judges considered the problem solved, AI integration, originality, demo, and documentation.'],['Are there participation certificates?','EvoHacks I lists digital participation certificates issued through Give My Certificate. Contact the team if you have a question about your certificate.']];
+const faqs=[['When was EvoHacks II?','EvoHacks II took place online on November 21–22, 2026.'],['Where can I see the EvoHacks II results?','Visit Winners for the placements, organizer favorites and links to each project.'],['Who is EvoHacks for?','High school students aged 13 and above. Beginners are welcome, with no previous hackathon experience needed. Devpost’s eligibility rules and standard country exceptions apply.'],['Is it free and fully online?','Yes. EvoHacks is free for participants and takes place entirely online.'],['Can I work alone or bring a team?','Both work. You can build solo or form a team of up to four members. Our Discord is a place to connect with other builders.'],['Can I use AI?','Yes. AI for Automation was the EvoHacks I theme. You must understand and explain your project, contribute meaningfully, and disclose major AI tools when requested. See the Code of Conduct and event rules.'],['What did a submission need?','A project description explaining the project, a public code repository, a 2–3 minute demo video, and a working deployment or local setup instructions.'],['How were projects judged?','The EvoHacks II criteria covered prompt fit, impact, functionality, usability and accessibility, appropriate technology, and the demonstration.'],['Are there participation certificates?','EvoHacks I lists digital participation certificates issued through Give My Certificate. Contact the team if you have a question about your certificate.']];
 function Arrow(){return <span aria-hidden="true">↗</span>}
 function Label({children}:{children:React.ReactNode}){return <div className="eyebrow"><span/> {children}</div>}
 export default function App(){
@@ -35,8 +77,8 @@ export default function App(){
   <aside className="chapter-index" aria-label="Evolution chapters">{stages.map((s,i)=><a href={['#home','#about','#event','#community','#future'][i]} key={s} className={active===i?'current':''} aria-label={s} aria-current={active===i?'step':undefined}><span>0{i+1}</span><i/></a>)}</aside>
   <main>
    <section id="home" className="hero" data-stage>
-    <div className="hero-topline"><span><i className="status-dot"/> BUILT BY STUDENTS. EVOLVING TOGETHER.</span><span className="edition">EVOHACKS II / NOV 21–22</span></div>
-    <div className="hero-copy"><Label>EVOHACKS II · THE NEXT CHAPTER</Label><h1>EVO<span>HACKS</span><small>Evolve the <em>Future.</em></small></h1><p>Where bold ideas evolve into<br/> extraordinary innovations.</p><div className="actions"><a className="button" href={DEVPOST}>Register for EvoHacks II <Arrow/></a><a className="text-link" href="#about">Explore EvoHacks <span>↓</span></a></div><div className="event-caption"><span className="tiny-cross">+</span> NOV 21–22, 2026 <b>·</b> ONLINE <b>·</b> HIGH SCHOOL</div></div>
+    <div className="hero-topline"><span><i className="status-dot"/> BUILT BY STUDENTS. EVOLVING TOGETHER.</span><span className="edition">NEXT EVENT / EVOHACKS III</span></div>
+    <div className="hero-copy"><Label>EVOHACKS III · UPCOMING</Label><h1>EVO<span>HACKS</span><small>Evolve the <em>Future.</em></small></h1><p>Where bold ideas evolve into<br/> extraordinary innovations.</p><div className="actions"><a className="button" href={DISCORD}>Join the community <Arrow/></a></div><div className="event-caption"><span className="tiny-cross">+</span> STUDENT-RUN <b>·</b> HIGH SCHOOL</div></div>
     <div className="specimen-label"><span className="crosshair">+</span><div>EVOLUTION / 001<br/><strong>THE BUILDING BLOCKS OF WHAT’S NEXT</strong></div></div>
     <div className="hero-bottom"><a href="#about"><span className="scroll-icon">↓</span> SCROLL TO EVOLVE</a><span>ONE IDEA. INFINITE POSSIBILITIES.</span><span>01 — 05</span></div>
    </section>
@@ -48,21 +90,14 @@ export default function App(){
     <div className="stats"><div><strong>145<span>↗</span></strong><span>EVOHACKS I PARTICIPANTS</span></div><div><strong>35</strong><span>EVOHACKS I PROJECTS</span></div><div><strong>∞</strong><span>POSSIBILITIES AHEAD</span></div><p>Different perspectives.<br/>One shared instinct:<br/><b>make something better.</b></p></div>
    </section>
    <section id="event" className="chapter upcoming" data-stage>
-    <div className="chapter-heading"><Label>03 / INNOVATION</Label><span>THE NEXT CHAPTER</span></div>
-    <div className="event-intro"><div><span className="pill">UPCOMING · NOVEMBER 21–22, 2026</span><h2>EvoHacks <em>II.</em><br/>Evolve again.</h2></div><div><h3>A new weekend.<br/>A new possibility.</h3><p>The next EvoHacks begins November 21. Bring your curiosity, meet fellow builders, and turn your next idea into something real.</p><a className="button" href={DISCORD}>Get event updates <Arrow/></a><p className="fineprint">Theme and registration details coming soon.</p></div></div>
-    <div className="schedule-heading"><h3>Your weekend, mapped out.</h3><span>ALL TIMES PACIFIC · PST (UTC−8)</span></div>
-    <div className="schedule-grid">{[
-      ['01','Build begins','SAT, NOV 21','9:00 AM','Start building and submitting your project.'],
-      ['02','Submission deadline','SUN, NOV 22','12:00 PM','Finish your build and submit your work.'],
-      ['03','Judging','SUN, NOV 22','12:00–2:30 PM','Projects are reviewed by the judging panel.'],
-      ['04','Winners announced','SUN, NOV 22','3:00 PM','Celebrate the projects and people behind them.']
-    ].map(([n,title,date,time,desc])=><article key={n}><span className="schedule-number">{n}</span><small>{date}</small><strong>{time}</strong><h4>{title}</h4><p>{desc}</p></article>)}</div>
-    <p className="fineprint">November 21–22, 2026. Build begins at 9:00 a.m.; winners announced Sunday at 3:00 p.m. Pacific.</p>
+    <div className="chapter-heading"><Label>03 / INNOVATION</Label><span>NOVEMBER 21–22, 2026</span></div>
+    <div className="event-intro"><div><span className="pill">COMPLETED</span><h2>EvoHacks <em>II.</em></h2></div><div><h3>What the students built.</h3><p>Over one weekend, students built tools to understand medical bills, coordinate volunteer searches and make everyday instructions easier to follow.</p><a className="button" href={DEVPOST}>Explore EvoHacks II on Devpost <Arrow/></a></div></div>
+    <div id="winners" className="winners-showcase"><div className="subheading"><div><Label>EVOHACKS II / HALL OF BUILDERS</Label><h3>EvoHacks II winners.</h3></div><a href={`${DEVPOST}project-gallery`}>Explore all projects ↗</a></div><div className="winner-grid">{editionTwoWinners.map(w=><article key={w.project}><div className="winner-award"><span>{w.number}</span><strong>{w.place}</strong></div><h4>{w.project}</h4><p className="winner-people">{w.people}</p><p>{w.description}</p><a className="text-link" href={w.url}>Explore their project <Arrow/></a></article>)}</div><p className="fineprint">Placements and creator credits from each project’s Devpost page.</p></div>
    </section>
    <section id="archive" className="chapter event">
     <div className="chapter-heading"><Label>EVOHACKS I / THE ARCHIVE</Label><span>OCTOBER 10–11, 2026 · COMPLETED</span></div>
     <div className="event-intro"><h2>Less repetition.<br/><em>More possibility.</em></h2><div><span className="pill">EVOHACKS I — COMPLETED</span><h3>AI for Automation</h3><p>Build tools that give people their time back. Our first challenge brought AI to everyday tasks, developer workflows, and the systems we rely on.</p><a className="text-link" href={DEV}>Explore EvoHacks I on Devpost <Arrow/></a></div></div>
-    <div id="winners" className="winners-showcase"><div className="subheading"><div><Label>EVOHACKS I / HALL OF BUILDERS</Label><h3>Meet the winners.</h3></div><a href={`${DEV}/project-gallery`}>All 35 projects ↗</a></div><div className="winner-grid">{winners.map(w=><article key={w.project}><div className="winner-award"><span>{w.number}</span><strong>{w.place}</strong></div><h4>{w.project}</h4><p className="winner-people">{w.people}</p><p>{w.description}</p><a className="text-link" href={w.url}>Explore their project <Arrow/></a></article>)}</div><p className="fineprint">Placements and creator credits from each project’s Devpost page.</p></div>
+    <div id="winners-i" className="winners-showcase"><div className="subheading"><div><Label>EVOHACKS I / HALL OF BUILDERS</Label><h3>EvoHacks I winners.</h3></div><a href={`${DEV}/project-gallery`}>All 35 projects ↗</a></div><div className="winner-grid">{winners.map(w=><article key={w.project}><div className="winner-award"><span>{w.number}</span><strong>{w.place}</strong></div><h4>{w.project}</h4><p className="winner-people">{w.people}</p><p>{w.description}</p><a className="text-link" href={w.url}>Explore their project <Arrow/></a></article>)}</div><p className="fineprint">Placements and creator credits from each project’s Devpost page.</p></div>
     <div className="event-facts"><span><small>WHEN</small>October 10–11, 2026</span><span><small>WHERE</small>Online, worldwide*</span><span><small>WHO</small>High school · Ages 13+</span><span><small>TEAMS</small>1–4 builders · Free</span></div>
     <p className="fineprint">* Subject to Devpost’s standard eligibility exceptions. <a href={`${DEV}/rules`}>Read the event rules ↗</a></p>
     <div className="subheading"><h3>One theme. Many directions.</h3><span>EXPLORE THE POSSIBILITIES</span></div>
@@ -73,14 +108,14 @@ export default function App(){
    <section id="community" className="chapter community" data-stage>
     <div className="chapter-heading"><Label>04 / INTELLIGENCE</Label><span>STRONGER, TOGETHER.</span></div>
     <h2>Great minds.<br/><em>Shared momentum.</em></h2><div className="community-intro"><p>Behind every breakthrough is a community. Meet the people and supporters who helped ideas take their next step.</p><a className="text-link" href="#contact">Be part of the next chapter <Arrow/></a></div>
-    <div className="new-panel"><Label>EVOHACKS II / JUDGING PANEL</Label><h3>New perspectives.<br/><em>A new panel.</em></h3><p>The EvoHacks II judging panel will be announced soon.</p><a className="text-link" href={DISCORD}>Follow the announcements <Arrow/></a></div><details className="archived-panel"><summary>View the EvoHacks I judges · Past event <span>+</span></summary><div className="subheading"><h3>The EvoHacks I judging panel</h3><a href={`${DEV}#judges`}>On Devpost ↗</a></div><div className="judges">{judges.map(([name,role,company],i)=><article key={name}><span className="judge-index">0{i+1}</span><div><h4>{name}</h4><p>{role}</p></div><span>{company}</span></article>)}</div></details>
+    <div className="new-panel"><Label>EVOHACKS II / JUDGING PANEL</Label><h3>New perspectives.<br/><em>A new panel.</em></h3><p>Meet the judges listed for the November event.</p><a className="text-link" href={DEVPOST + "#judges"}>View the judging panel <Arrow/></a></div><details className="archived-panel"><summary>View the EvoHacks I judges · Past event <span>+</span></summary><div className="subheading"><h3>The EvoHacks I judging panel</h3><a href={`${DEV}#judges`}>On Devpost ↗</a></div><div className="judges">{judges.map(([name,role,company],i)=><article key={name}><span className="judge-index">0{i+1}</span><div><h4>{name}</h4><p>{role}</p></div><span>{company}</span></article>)}</div></details>
     <div id="sponsors" className="sponsors"><Label>THE PEOPLE BEHIND THE POSSIBILITIES</Label><h3 className="sponsors-title">Our sponsors &amp; partners.</h3><p className="sponsors-intro">Thank you to the sponsors and community partners supporting EvoHacks II.</p><div className="sponsor-wall"><SponsorLinks /></div><div className="sponsor-note"><p>Prizes. Tools. New opportunities.<br/>Help the next generation take their first leap.</p><a className="text-link" href="#contact">Become a sponsor <Arrow/></a></div><details className="submission"><summary>Ways to support EvoHacks <span>+</span></summary><p>Provide prizes, subscriptions, or credits. Teach a technical workshop. Or partner with us to reach students, schools, and clubs. We welcome sponsors, mentors, judges, and community partners.</p></details></div>
    </section>
    <section id="faq" className="chapter faq"><div><Label>A FEW THINGS TO KNOW</Label><h2>Curious?<br/><em>Good.</em></h2><p>Every great project starts<br/>with a question.</p><a className="text-link" href="#contact">Ask us something <Arrow/></a></div><div>{faqs.map(([q,a])=><details key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
-   <section id="future" className="future chapter" data-stage><Label>05 / THE FUTURE</Label><h2>THE NEXT<br/>EVOLUTION<br/>STARTS WITH <em>YOU.</em></h2><p>EvoHacks II starts November 21, 2026.<br/>A new chapter. The same drive to build something extraordinary.</p><div className="actions"><a href={DISCORD} className="button">Join the community <Arrow/></a><a href={`${DEV}/project-gallery`} className="text-link">Explore the projects <Arrow/></a></div><small>NOVEMBER 21–22, 2026 · STARTS 9:00 AM PACIFIC</small></section>
+   <section id="future" className="future chapter" data-stage><Label>05 / THE FUTURE</Label><h2>THE NEXT<br/>EVOLUTION<br/>STARTS WITH <em>YOU.</em></h2><p>EvoHacks III is coming. Join our Discord for announcements.</p><div className="actions"><a href={DISCORD} className="button">Join the community <Arrow/></a></div><small>EVOHACKS III · UPCOMING</small></section>
    <section id="contact" className="chapter contact"><div><Label>LET’S CONNECT</Label><h2>Build the<br/><em>next chapter.</em></h2><p>Questions, partnerships, or an idea?<br/>We’d love to hear from you.</p><a className="text-link" href="mailto:evohacks@evohacks.xyz">evohacks@evohacks.xyz <Arrow/></a></div><form action="https://formspree.io/f/xojglbzd" method="POST"><div className="form-row"><label>First name<input name="firstName" autoComplete="given-name" required/></label><label>Last name<input name="lastName" autoComplete="family-name" required/></label></div><div className="form-row"><label>Email<input name="email" type="email" autoComplete="email" required/></label><label>School / organization<input name="school" autoComplete="organization"/></label></div><label>What brings you here?<select name="reason" defaultValue="General question">{['General question','Sponsorship','Mentoring','Judging','Technical support'].map(x=><option key={x}>{x}</option>)}</select></label><label>Your message<textarea name="message" rows={3} required/></label><button className="button" type="submit">Send message <Arrow/></button><small>Submitted through Formspree. <button type="button" className="inline" onClick={()=>setPolicy('privacy')}>Privacy policy</button></small></form></section>
   </main>
-  <footer><div className="footer-top"><a className="brand" href="#home"><img src="/favicon.svg" alt=""/>EVOHACKS</a><p>Built by students.<br/>For what comes next.</p><div><a href={DISCORD}>Discord ↗</a><a href="https://www.instagram.com/evohacks2026/">Instagram ↗</a><a href="https://github.com/YusefKak/Evohacks">GitHub ↗</a><a href={DEV}>Devpost ↗</a></div></div><div className="footer-bottom"><span>© 2026 EVOHACKS</span><div><button onClick={()=>setPolicy('conduct')}>Code of conduct</button><button onClick={()=>setPolicy('privacy')}>Privacy policy</button><a href={FORM}>EvoHacks I registration (closed event) ↗</a></div><a href="#home">BACK TO ORIGINS ↑</a></div></footer>
+  <footer><div className="footer-top"><a className="brand" href="#home"><img src="/favicon.svg" alt=""/>EVOHACKS</a><p>Built by students.<br/>For what comes next.</p><div><a href={DISCORD}>Discord ↗</a><a href="https://www.instagram.com/evohacks2026/">Instagram ↗</a><a href="https://github.com/YusefKak/Evohacks">GitHub ↗</a><a href={DEVPOST}>EvoHacks II on Devpost ↗</a></div></div><div className="footer-bottom"><span>© 2026 EVOHACKS</span><div><button onClick={()=>setPolicy('conduct')}>Code of conduct</button><button onClick={()=>setPolicy('privacy')}>Privacy policy</button><a href={FORM}>EvoHacks I registration (closed event) ↗</a></div><a href="#home">BACK TO ORIGINS ↑</a></div></footer>
   <div className="motion-control"><button onClick={()=>setStill(!still)} aria-pressed={still}>{still?'▶':'Ⅱ'} <span>{still?'Motion paused':'Pause motion'}</span></button><button onClick={()=>setLite(!lite)} aria-pressed={lite}>{lite?'3D':'Lite'}</button></div>
   <dialog ref={dialog} onClose={()=>setPolicy('')} onClick={e=>{if(e.target===e.currentTarget)dialog.current?.close()}}><button className="dialog-close" onClick={()=>dialog.current?.close()} autoFocus>Close ✕</button>{policy==='conduct'?<CodeOfConductPage/>:<PrivacyPolicyPage/>}</dialog>
  </div>
